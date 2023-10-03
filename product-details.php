@@ -1,14 +1,15 @@
 <?php
 include "Helpers/functions.php";
-require "database/db.php";
-require "database/database.php";
+// require "database/db.php";
+require_once "database/database.php";
 $page = _get_page_name();
 
 $id = $_GET['id'];
 
-$p = $products[$id];
-// $client_systeme = $_SERVER['HTTP_SEC_CH_UA_PLATFORM'];
+// $p = $products[$id];
+// $client_systeme = $_SERVER->HTTP_SEC_CH_UA_PLATFORM;
 
+$p = $db->query("SELECT * FROM produits WHERE id = $id AND deleted_at IS NULL LIMIT 1")->fetch();
 
 // $_GET;
 // $_POST;
@@ -16,10 +17,6 @@ $p = $products[$id];
 // $_COOKIE;
 // $_FILES;
 // $_SERVER;
-
-
-
-
 
 ?>
 
@@ -34,7 +31,7 @@ $p = $products[$id];
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -56,16 +53,26 @@ $p = $products[$id];
 
         <div class="row">
             <div class="col-md-6">
-                <img src="images/produits/<?= $p['image'] ?>" class="img-fluid" alt="">
+                <img src="images/produits/<?= $p->image ?>" class="img-fluid" alt="">
             </div>
 
             <div class="col-md-6">
-                <h3 class="mb-3"><?= $p['name'] ?></h3>
+                <h3><?= $p->designation ?></h3>
                 <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam omnis quia saepe dolorum rem facilis, quos assumenda modi consectetur dignissimos fugiat aliquam! Dolores consequatur vitae temporibus atque voluptatem explicabo sint!
+                    <?= $p->description ?>
                 </p>
 
-                <button class="btn btn-dark">Add To Cart</button>
+                <h4>
+                    <span class="fw-bold"><?= $p->prix ?> DH</span>
+                    <span class="fw-bold text-decoration-line-through text-danger">
+                        <?= $p->ancien_prix ?> DH
+                    </span>
+                </h4>
+
+                <button class="btn btn-dark fw-bold">
+                    <i class="bi bi-cart-fill"></i>
+                    Add To Cart
+                </button>
             </div>
         </div>
 

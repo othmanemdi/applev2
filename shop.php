@@ -9,8 +9,7 @@ $products = [];
 
 // $users = $pdo->query("SELECT * FROM users")->fetchAll();
 
-
-$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL")->fetchAll();
+$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY id")->fetchAll();
 
 ?>
 
@@ -50,86 +49,85 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL")->fetch
 
         <div class="row">
             <div class="col-md-3">
-                <h5>Catégories:</h5>
+                <div class="sticky-top">
+                    <h5>Catégories:</h5>
 
-                <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush">
 
-                    <?php foreach ($categories as $key => $value) : ?>
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="<?= $value['name'] ?>" id="<?= $value['name'] ?>">
-                            <label class="form-check-label" for="<?= $value['name'] ?>">
-                                <i class="bi bi-<?= $value['icon'] ?>"></i>
-                                <?= ucwords($value['name']) ?>
+                        <?php foreach ($categories as $key => $value) : ?>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="<?= $value['name'] ?>" id="<?= $value['name'] ?>">
+                                <label class="form-check-label" for="<?= $value['name'] ?>">
+                                    <i class="bi bi-<?= $value['icon'] ?>"></i>
+                                    <?= ucwords($value['name']) ?>
+                                </label>
+                            </li>
+                        <?php endforeach ?>
+
+                    </ul>
+
+                    <h5 class="mt-3">Couleurs:</h5>
+
+                    <hr class="m-0 mt-2 mb-3">
+
+                    <div>
+                        <style>
+                            .btn-outline-originale {
+                                --bs-btn-color: black;
+                                --bs-btn-border-color: #e8ebe9;
+                                --bs-btn-hover-color: #fff;
+                                --bs-btn-hover-bg: #e8ebe9;
+                                --bs-btn-hover-border-color: #e8ebe9;
+                                --bs-btn-focus-shadow-rgb: 13, 110, 253;
+                                --bs-btn-active-color: #fff;
+                                --bs-btn-active-bg: #e8ebe9;
+                                --bs-btn-active-border-color: #e8ebe9;
+                                --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                                --bs-btn-disabled-color: #e8ebe9;
+                                --bs-btn-disabled-bg: transparent;
+                                --bs-btn-disabled-border-color: #e8ebe9;
+                                --bs-gradient: none;
+                            }
+                        </style>
+
+                        <?php foreach ($colors as $key => $value) : ?>
+
+                            <?php if ($value != "originale") : ?>
+                                <style>
+                                    .btn-outline-<?= $value ?> {
+                                        --bs-btn-color: <?= $value ?>;
+                                        --bs-btn-border-color: <?= $value ?>;
+                                        --bs-btn-hover-color: #fff;
+                                        --bs-btn-hover-bg: <?= $value ?>;
+                                        --bs-btn-hover-border-color: <?= $value ?>;
+                                        --bs-btn-focus-shadow-rgb: 13, 110, 253;
+                                        --bs-btn-active-color: #fff;
+                                        --bs-btn-active-bg: <?= $value ?>;
+                                        --bs-btn-active-border-color: <?= $value ?>;
+                                        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                                        --bs-btn-disabled-color: <?= $value ?>;
+                                        --bs-btn-disabled-bg: transparent;
+                                        --bs-btn-disabled-border-color: <?= $value ?>;
+                                        --bs-gradient: none;
+                                    }
+                                </style>
+
+                                <style>
+                                    <?php // _class_checkbox($value) 
+                                    ?>
+                                </style>
+                            <?php endif ?>
+
+                            <input type="checkbox" name="color" class="btn-check" id="btn-check-<?= $value ?>" autocomplete="off">
+
+                            <label class="btn mb-2 btn-outline-<?= $value ?> fw-bold rounded-pill btn-sm me-3" for="btn-check-<?= $value ?>">
+                                <i class="bi bi-circle-fill"></i> <?= ucwords($value) ?>
                             </label>
-                        </li>
-                    <?php endforeach ?>
 
-                </ul>
+                        <?php endforeach ?>
 
-
-                <h5 class="mt-3">Couleurs:</h5>
-
-
-                <hr class="m-0 mt-2 mb-3">
-
-                <div>
-                    <style>
-                        .btn-outline-originale {
-                            --bs-btn-color: black;
-                            --bs-btn-border-color: #e8ebe9;
-                            --bs-btn-hover-color: #fff;
-                            --bs-btn-hover-bg: #e8ebe9;
-                            --bs-btn-hover-border-color: #e8ebe9;
-                            --bs-btn-focus-shadow-rgb: 13, 110, 253;
-                            --bs-btn-active-color: #fff;
-                            --bs-btn-active-bg: #e8ebe9;
-                            --bs-btn-active-border-color: #e8ebe9;
-                            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-                            --bs-btn-disabled-color: #e8ebe9;
-                            --bs-btn-disabled-bg: transparent;
-                            --bs-btn-disabled-border-color: #e8ebe9;
-                            --bs-gradient: none;
-                        }
-                    </style>
-
-                    <?php foreach ($colors as $key => $value) : ?>
-
-                        <?php if ($value != "originale") : ?>
-                            <style>
-                                .btn-outline-<?= $value ?> {
-                                    --bs-btn-color: <?= $value ?>;
-                                    --bs-btn-border-color: <?= $value ?>;
-                                    --bs-btn-hover-color: #fff;
-                                    --bs-btn-hover-bg: <?= $value ?>;
-                                    --bs-btn-hover-border-color: <?= $value ?>;
-                                    --bs-btn-focus-shadow-rgb: 13, 110, 253;
-                                    --bs-btn-active-color: #fff;
-                                    --bs-btn-active-bg: <?= $value ?>;
-                                    --bs-btn-active-border-color: <?= $value ?>;
-                                    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-                                    --bs-btn-disabled-color: <?= $value ?>;
-                                    --bs-btn-disabled-bg: transparent;
-                                    --bs-btn-disabled-border-color: <?= $value ?>;
-                                    --bs-gradient: none;
-                                }
-                            </style>
-
-                            <style>
-                                <?php // _class_checkbox($value) 
-                                ?>
-                            </style>
-                        <?php endif ?>
-
-                        <input type="checkbox" name="color" class="btn-check" id="btn-check-<?= $value ?>" autocomplete="off">
-
-                        <label class="btn mb-2 btn-outline-<?= $value ?> fw-bold rounded-pill btn-sm me-3" for="btn-check-<?= $value ?>">
-                            <i class="bi bi-circle-fill"></i> <?= ucwords($value) ?>
-                        </label>
-
-                    <?php endforeach ?>
-
+                    </div>
                 </div>
-
 
             </div>
             <!-- col -->
@@ -144,10 +142,13 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL")->fetch
                         <div class="col">
                             <div class="card">
                                 <a href="product-details.php?id=<?= $p->id ?>">
-                                    <img src="images/produits1/<?= $p->image ?>" class="card-img-top" alt="...">
+                                    <img src="images/produits/<?= $p->image ?>" class="card-img-top" alt="...">
                                 </a>
                                 <div class="card-body">
                                     <h6 class="fw-bold">
+
+                                        <?php // substr($p->designation, 0, 25)  
+                                        ?>
                                         <?= $p->designation ?>
                                     </h6>
                                     <div class="mb-2">
@@ -157,6 +158,9 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL")->fetch
                                         </span>
                                     </div>
 
+                                    <div>
+                                        <?= $p->image ?>
+                                    </div>
                                     <a href="cart.php" class="btn btn-dark fw-bold">
                                         <i class="bi bi-cart-fill"></i>
                                         Add to cart
