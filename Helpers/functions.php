@@ -6,6 +6,16 @@ function get_full_name($prenom, $nom)
     return ucwords($result);
 }
 
+function _number_format($number)
+{
+    return number_format($number, 2, ',', ' ');
+}
+
+function e($value)
+{
+    return trim($value);
+}
+
 function dd($value)
 {
     echo "<pre>";

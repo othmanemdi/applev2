@@ -4,19 +4,16 @@ include "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
 
-$id = $_GET['id'];
+$product_id = (int)$_GET['id'];
 
-// $p = $products[$id];
-// $client_systeme = $_SERVER->HTTP_SEC_CH_UA_PLATFORM;
+$p = $db->query("SELECT * FROM produits WHERE id = $product_id AND deleted_at IS NULL LIMIT 1")->fetch();
 
-$p = $db->query("SELECT * FROM produits WHERE id = $id AND deleted_at IS NULL LIMIT 1")->fetch();
-
-// $_GET;
-// $_POST;
-// $_SESSION;
-// $_COOKIE;
-// $_FILES;
-// $_SERVER;
+$image = e($p->image);
+$reference = e($p->reference);
+$designation = e(strtoupper($p->designation));
+$description = e(ucfirst($p->description));
+$prix = _number_format($p->prix);
+$ancien_prix = _number_format($p->ancien_prix);
 
 ?>
 
@@ -31,7 +28,7 @@ $p = $db->query("SELECT * FROM produits WHERE id = $id AND deleted_at IS NULL LI
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -53,24 +50,28 @@ $p = $db->query("SELECT * FROM produits WHERE id = $id AND deleted_at IS NULL LI
 
         <div class="row">
             <div class="col-md-6">
-                <img src="images/produits/<?= $p->image ?>" class="img-fluid" alt="">
+                <img src="images/produits/<?= $image ?>" class="img-fluid" alt="" style="width: 70%">
             </div>
 
+
             <div class="col-md-6">
-                <h3><?= $p->designation ?></h3>
+                <h3 class="mb-3">
+                    <?= $designation ?>
+                </h3>
                 <p>
-                    <?= $p->description ?>
+                    <?= $description ?>
                 </p>
 
-                <h4>
-                    <span class="fw-bold"><?= $p->prix ?> DH</span>
-                    <span class="fw-bold text-decoration-line-through text-danger">
-                        <?= $p->ancien_prix ?> DH
+                <div class="mb-2 h4 fw-bold mt-2">
+                    <span>
+                        <?= $prix ?> DH
                     </span>
-                </h4>
+                    <span class="text-decoration-line-through text-danger">
+                        <?= $ancien_prix ?> DH
+                    </span>
+                </div>
 
                 <button class="btn btn-dark fw-bold">
-                    <i class="bi bi-cart-fill"></i>
                     Add To Cart
                 </button>
             </div>
