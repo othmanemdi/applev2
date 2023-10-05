@@ -8,6 +8,7 @@ $product_id = (int)$_GET['id'];
 
 $p = $db->query("SELECT * FROM produits WHERE id = $product_id AND deleted_at IS NULL LIMIT 1")->fetch();
 
+$id = $p->id;
 $image = e($p->image);
 $reference = e($p->reference);
 $designation = e(strtoupper($p->designation));
