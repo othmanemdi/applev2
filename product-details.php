@@ -40,7 +40,6 @@ $ancien_prix = _number_format($p->ancien_prix);
 
         <h3 class="my-3">Product details</h3>
 
-
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>

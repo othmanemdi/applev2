@@ -9,7 +9,7 @@ $products = [];
 
 // $users = $pdo->query("SELECT * FROM users")->fetchAll();
 
-$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY id")->fetchAll();
+$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY RAND()")->fetchAll();
 
 ?>
 
@@ -27,8 +27,8 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-
-
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -140,7 +140,7 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
 
                     <?php foreach ($produits as $key => $p) : ?>
                         <div class="col">
-                            <div class="card">
+                            <div class="card" data-aos="zoom-in">
                                 <a href="product-details.php?id=<?= $p->id ?>">
                                     <img src="images/produits/<?= $p->image ?>" class="card-img-top" alt="...">
                                 </a>
@@ -152,15 +152,12 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
                                         <?= $p->designation ?>
                                     </h6>
                                     <div class="mb-2">
-                                        <span class="h6 fw-bold"><?= $p->prix ?> DH</span>
+                                        <span class="h6 fw-bold"><?= _number_format($p->prix) ?> DH</span>
                                         <span class="h6 fw-bold text-decoration-line-through text-danger">
-                                            <?= $p->ancien_prix ?> DH
+                                            <?= _number_format($p->ancien_prix) ?> DH
                                         </span>
                                     </div>
 
-                                    <div>
-                                        <?= $p->image ?>
-                                    </div>
                                     <a href="cart.php" class="btn btn-dark fw-bold">
                                         <i class="bi bi-cart-fill"></i>
                                         Add to cart
@@ -190,6 +187,13 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
     </script>
 </body>
 
