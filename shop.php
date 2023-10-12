@@ -10,7 +10,6 @@ $products = [];
 // $users = $pdo->query("SELECT * FROM users")->fetchAll();
 
 $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY RAND()")->fetchAll();
-
 ?>
 
 <!doctype html>

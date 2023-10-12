@@ -22,13 +22,15 @@ $ancien_prix = _number_format($p->ancien_prix);
 <html lang="en">
 
 <head>
-    <title>Register</title>
+    <title>Product Details | <?= $designation ?></title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 </head>
 
@@ -49,12 +51,12 @@ $ancien_prix = _number_format($p->ancien_prix);
         </nav>
 
         <div class="row">
-            <div class="col-md-6">
-                <img src="images/produits/<?= $image ?>" class="img-fluid" alt="" style="width: 70%">
+            <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+                <img src="images/produits/<?= $image ?>" class="img-fluid" alt="">
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
                 <h3 class="mb-3">
                     <?= $designation ?>
                 </h3>
@@ -72,6 +74,7 @@ $ancien_prix = _number_format($p->ancien_prix);
                 </div>
 
                 <button class="btn btn-dark fw-bold">
+                    <i class="bi bi-cart-fill"></i>
                     Add To Cart
                 </button>
             </div>
@@ -86,6 +89,14 @@ $ancien_prix = _number_format($p->ancien_prix);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
     </script>
 </body>
 

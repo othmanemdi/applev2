@@ -6,6 +6,7 @@ function get_full_name($prenom, $nom)
     return ucwords($result);
 }
 
+
 function _number_format($number)
 {
     return number_format($number, 2, ',', ' ');
