@@ -12,9 +12,10 @@ function _number_format($number)
     return number_format($number, 2, ',', ' ');
 }
 
-function e($value)
+
+function e($string)
 {
-    return trim($value);
+    return htmlspecialchars(strtolower(trim($string)));
 }
 
 function dd($value)

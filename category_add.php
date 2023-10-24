@@ -2,35 +2,14 @@
 require_once "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
-$title = "Colors - Add new color";
+$title = "Cateories - Add new category";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['btn_add_color'])) {
-
-        if (isset($_POST['name']) and isset($_POST['hex'])) {
-            $name = e($_POST['name']);
-            $hex = e($_POST['hex']);
-
-            if ($name == '' or $hex == '') {
-                // Probléme
-                header('Location: color_add.php');
-                exit;
-            }
-
-            $rows_colors = $db->query("SELECT id FROM colors WHERE name = '$name' LIMIT 1")->rowCount();
-
-            if ($rows_colors === 1) {
-                // Probléme
-                header('Location: color_add.php');
-            } else {
-                // Success
-                $db->query("INSERT INTO colors SET name = '$name', hex = '$hex'");
-                header('Location: colors.php');
-            }
-        } else {
-            header('Location: color_add.php');
-        }
-
+    if (isset($_POST['btn_add_category'])) {
+        $name = $_POST['name'];
+        $icon = $_POST['icon'];
+        $db->query("INSERT INTO categories SET name = '$name', icon = '$icon'");
+        header('Location: categories.php');
         exit;
     }
 }
@@ -50,13 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="container">
 
         <h3 class="my-3">
-            Add new color
+            Add new category
         </h3>
 
 
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4>Add new color</h4>
+                <h4>Add new category</h4>
             </div>
             <!-- crd-header -->
 
@@ -75,8 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="hex" class="form-label">Hex</label>
-                                <input type="text" class="form-control" name="hex" id="hex" placeholder="Hex Color:">
+                                <label for="icon" class="form-label">Icon Bootstrap</label>
+                                <span>
+                                    <a target="_blank" href="https://icons.getbootstrap.com/">Go to link</a>
+                                </span>
+                                <input type="text" class="form-control" name="icon" id="icon" placeholder="Ex: phone">
+
                             </div>
                             <!-- mb-3 -->
                         </div>
@@ -84,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <!-- row -->
 
-                    <button name="btn_add_color" type="submit" class="btn btn-primary fw-bold">
+                    <button name="btn_add_category" type="submit" class="btn btn-primary fw-bold">
                         <i class="bi bi-pencil-square"></i>
-                        Add new color
+                        Add new category
                     </button>
 
                     <a href="colors.php" class="btn btn-outline-dark fw-bold">

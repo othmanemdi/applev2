@@ -50,6 +50,10 @@
                     <a class="nav-link <?= in_array($page, ["colors"]) ? 'text-info fw-bold' : ''  ?>" href="colors.php">Colors</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link <?= in_array($page, ["categories"]) ? 'text-info fw-bold' : ''  ?>" href="categories.php">Categories</a>
+                </li>
+
             </ul>
             <ul class="d-flex navbar-nav my-2 my-lg-0">
 
