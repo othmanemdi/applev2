@@ -4,12 +4,34 @@ require_once "database/database.php";
 $page = _get_page_name();
 $title = "Cateories - Add new category";
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['btn_add_category'])) {
-        $name = $_POST['name'];
-        $icon = $_POST['icon'];
-        $db->query("INSERT INTO categories SET name = '$name', icon = '$icon'");
-        header('Location: categories.php');
+        if (isset($_POST['name']) and isset($_POST['icon'])) {
+            $name = e($_POST['name']);
+            $icon = e($_POST['icon']);
+
+            if ($name == '' or empty($icon)) {
+                // Probléme
+                header('Location: category_add.php');
+                exit;
+            }
+
+            $rows_categories = $db->query("SELECT * FROM categories WHERE name = '$name' LIMIT 1")->rowCount();
+
+            if ($rows_categories == 1) {
+                //Probléme
+                header('Location: category_add.php');
+                exit;
+            } else {
+                // Success
+                $db->query("INSERT INTO categories SET name = '$name', icon = '$icon'");
+                header('Location: categories.php');
+            }
+        } else {
+            header('Location: category_add.php');
+        }
         exit;
     }
 }
@@ -72,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Add new category
                     </button>
 
-                    <a href="colors.php" class="btn btn-outline-dark fw-bold">
+                    <a href="categories.php" class="btn btn-outline-dark fw-bold">
                         <i class="bi bi-arrow-left"></i>
                         Back
                     </a>

@@ -13,7 +13,7 @@ function _number_format($number)
 }
 
 
-function e($string)
+function e(string $string): string
 {
     return htmlspecialchars(strtolower(trim($string)));
 }
