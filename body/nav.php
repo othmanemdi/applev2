@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?= in_array($page, ["colors"]) ? 'text-info fw-bold' : ''  ?>" href="colors.php">Colors</a>
+                    <a class="nav-link <?= in_array($page, ["colors", "color_details"]) ? 'text-info fw-bold' : ''  ?>" href="colors.php">Colors</a>
                 </li>
 
                 <li class="nav-item">

@@ -28,10 +28,16 @@ $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL ORDER BY id 
     </header>
     <main class="container">
 
-        <h3 class="my-3">
+        <h3 class="mt-3">
             List of colors
         </h3>
 
+        <nav aria-label="breadcrumb my-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Colors</li>
+            </ol>
+        </nav>
 
         <div class="card shadow-sm">
             <div class="card-header">
@@ -66,7 +72,7 @@ $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL ORDER BY id 
                                     </td>
 
                                     <td>
-                                        <a href="" class="btn btn-secondary btn-sm fw-bold">
+                                        <a href="color_details.php?id=<?= $color->id ?>" class="btn btn-secondary btn-sm fw-bold">
                                             <i class="bi bi-info-circle-fill"></i>
                                             Show
                                         </a>

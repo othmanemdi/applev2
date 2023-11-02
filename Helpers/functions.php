@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Africa/Casablanca');
 
 function get_full_name($prenom, $nom)
 {
@@ -64,4 +65,25 @@ function _get_page_name()
     $url_data = explode('/', $page);
     $page_name = end($url_data);
     return explode('.', $page_name)[0];
+}
+
+
+function _date_format($date)
+{
+    return date('d/m/Y H:i', strtotime($date));
+}
+
+
+function _get_year_from_date($date)
+{
+    return date('Y', strtotime($date));
+}
+
+/*
+   :A full textual representation of a month (January through December)
+*/
+
+function _get_month_textual_from_date($date)
+{
+    return date('F', strtotime($date));
 }
