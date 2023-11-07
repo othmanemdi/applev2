@@ -74,7 +74,7 @@ $categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL ORDE
                                         <i class="bi bi-<?= $v->icon ?>"></i>
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-secondary btn-sm fw-bold">
+                                        <a href="category_details.php?id=<?= $v->id ?>" class="btn btn-secondary btn-sm fw-bold">
                                             <i class="bi bi-info-circle-fill"></i>
                                             Show
                                         </a>
