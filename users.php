@@ -40,7 +40,7 @@ $users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DE
                     Add new user
                 </a>
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered">
+                    <table class="table table-sm table-bordered text-nowrap">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -61,7 +61,7 @@ $users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DE
                                     <td><?= ucwords($u->first_name) ?></td>
                                     <td><?= ucwords($u->last_name) ?></td>
                                     <td>
-                                        <span class="badge rounded-pill text-bg-<?= $u->gender == 'men' ? 'success' : 'danger' ?>">
+                                        <span class="badge rounded-pill text-bg-<?= $u->gender == 'man' ? 'success' : 'danger' ?>">
                                             <?= strtoupper($u->gender) ?>
                                         </span>
                                     </td>
@@ -75,12 +75,12 @@ $users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DE
                                             Show
                                         </a>
 
-                                        <a href="" class="btn btn-dark btn-sm fw-bold">
+                                        <a href="user_update.php?id=<?= $u->id ?>" class="btn btn-dark btn-sm fw-bold">
                                             <i class="bi bi-wrench-adjustable"></i>
                                             Update
                                         </a>
 
-                                        <a href="" class="btn btn-danger btn-sm fw-bold">
+                                        <a href="user_delete.php?id=<?= $u->id ?>" class="btn btn-danger btn-sm fw-bold">
                                             <i class="bi bi-trash3-fill"></i>
                                             Delete
                                         </a>
