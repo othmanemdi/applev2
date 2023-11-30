@@ -8,8 +8,18 @@ $products = [];
 // dd($products);
 
 // $users = $pdo->query("SELECT * FROM users")->fetchAll();
+$s = "";
+$req_search = "";
 
-$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY RAND()")->fetchAll();
+if (isset($_GET['s'])) {
+    $s = $_GET['s'];
+    $req_search = " AND designation LIKE '%$s%' ";
+}
+
+$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL
+$req_search
+ORDER BY RAND()")->fetchAll();
+
 ?>
 
 <!doctype html>
@@ -135,6 +145,17 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
 
                 <h5 class="my-3">Liste des produits</h5>
                 <hr>
+
+                <form method="get" class="mb-3">
+                    <input type="search" class="form-control" name="s" placeholder="Search:" value="<?= $s ?>">
+                </form>
+
+                <?php if ($s) : ?>
+                    <div class="alert alert-info" role="alert">
+                        Result of your serash by <?= $s ?>
+                    </div>
+                <?php endif ?>
+
                 <div class="row row-cols-2 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gy-2">
 
                     <?php foreach ($produits as $key => $p) : ?>

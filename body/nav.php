@@ -54,6 +54,10 @@
                     <a class="nav-link <?= in_array($page, ["categories"]) ? 'text-info fw-bold' : ''  ?>" href="categories.php">Categories</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link <?= in_array($page, ["users"]) ? 'text-info fw-bold' : ''  ?>" href="users.php">Users</a>
+                </li>
+
             </ul>
             <ul class="d-flex navbar-nav my-2 my-lg-0">
 

@@ -2,18 +2,8 @@
 include_once "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
-$title = "Categories";
-$categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
-
-// CRUDS
-
-// CREATE -----------
-// READ -----------
-// UPDATE
-// DELETE
-// SEARCH
-
-
+$title = "Users";
+$users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
 
 ?>
 
@@ -32,49 +22,55 @@ $categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL ORDE
     <main class="container">
 
         <h3 class="my-3">
-            List of categories
+            List of users
         </h3>
 
 
 
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4>List of categories</h4>
+                <h4>List of users</h4>
             </div>
             <!-- crd-header -->
 
             <div class="card-body">
 
-                <a href="category_add.php" class="btn btn-primary btn-sm fw-bold mb-3">
+                <a href="user_add.php" class="btn btn-primary btn-sm fw-bold mb-3">
                     <i class="bi bi-pencil-square"></i>
-                    Add new category
+                    Add new user
                 </a>
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Icon</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Adresse</th>
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($categories as $key => $v) : ?>
+                            <?php foreach ($users as $key => $u) : ?>
                                 <tr>
+                                    <td><?= $u->id ?></td>
+                                    <td><?= ucwords($u->first_name) ?></td>
+                                    <td><?= ucwords($u->last_name) ?></td>
                                     <td>
-                                        <?= $v->id ?>
+                                        <span class="badge rounded-pill text-bg-<?= $u->gender == 'men' ? 'success' : 'danger' ?>">
+                                            <?= strtoupper($u->gender) ?>
+                                        </span>
                                     </td>
+                                    <td><?= $u->phone ?></td>
+                                    <td><?= $u->city ?></td>
+                                    <td><?= $u->adresse ?></td>
+                                    <td><?= $u->email ?></td>
                                     <td>
-
-                                        <?= ucwords($v->name) ?>
-                                    </td>
-
-                                    <td>
-                                        <i class="bi bi-<?= $v->icon ?>"></i>
-                                    </td>
-                                    <td>
-                                        <a href="category_details.php?id=<?= $v->id ?>" class="btn btn-secondary btn-sm fw-bold">
+                                        <a href="user_details.php?id=<?= $u->id ?>" class="btn btn-secondary btn-sm fw-bold">
                                             <i class="bi bi-info-circle-fill"></i>
                                             Show
                                         </a>
