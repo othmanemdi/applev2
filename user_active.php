@@ -2,7 +2,7 @@
 require_once "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
-$title = "User delete";
+$title = "User active";
 
 if (!isset($_GET['id']) or $_GET['id'] == '') {
     header('Location:users.php');
@@ -16,9 +16,9 @@ $user_count = $req->rowCount();
 
 if ($user_count == 1) {
 
-    if (isset($_POST["btn_delete_user"])) {
-        $db->query("UPDATE users SET deleted_at = NOW() WHERE id = $id");
-        header("Location:users.php");
+    if (isset($_POST["btn_active_user"])) {
+        $db->query("UPDATE users SET deleted_at = NULL WHERE id = $id");
+        header("Location:users.php?user_selected=$id");
         exit;
     }
 
@@ -51,14 +51,14 @@ if ($user_count == 1) {
     <main class="container">
 
         <h3 class="mt-3">
-            User delete
+            User active
         </h3>
 
         <nav aria-label="breadcrumb my-3">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="users.php">Users</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User delete</li>
+                <li class="breadcrumb-item active" aria-current="page">User active</li>
             </ol>
         </nav>
 
@@ -69,8 +69,8 @@ if ($user_count == 1) {
             <!-- alert -->
 
         <?php else : ?>
-            <div class="card shadow-sm">
-                <div class="card-header">
+            <div class="card shadow-sm border-success">
+                <div class="card-header text-success">
                     <h4>User details</h4>
                 </div>
                 <!-- crd-header -->
@@ -126,14 +126,17 @@ if ($user_count == 1) {
                     </dl>
 
 
-                    <h5 class="text-danger fw-bold">
-                        Are you sure you want to delete (<?= $first_name ?>) ?
+                    <h5 class="text-success fw-bold">
+                        Are you sure you want to active (<?= ucwords($first_name) ?>) ?
                     </h5>
 
                     <form method="post">
-                        <a href="users.php" class="btn btn-secondary">Back</a>
+                        <a href="users.php" class="btn btn-secondary fw-bold">Back</a>
 
-                        <button type="submit" class="btn btn-danger" name="btn_delete_user">Delete</button>
+                        <button type="submit" class="btn btn-success fw-bold" name="btn_active_user">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            Active
+                        </button>
                     </form>
 
 

@@ -3,16 +3,7 @@ include_once "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
 $title = "Users";
-$users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
-
-$total_users_deleted = $db->query("SELECT count(id) AS total_users_deleted FROM users WHERE deleted_at IS NOT NULL LIMIT 1")->fetch()->total_users_deleted;
-
-// $total_users_deleted = $db->query("SELECT id FROM users WHERE deleted_at IS NOT NULL")->rowCount();
-
-$user_selected = 0;
-if (isset($_GET['user_selected'])) {
-    $user_selected = (int)$_GET['user_selected'];
-}
+$users = $db->query("SELECT * FROM users WHERE deleted_at IS NOT NULL ORDER BY id DESC")->fetchAll();
 
 ?>
 
@@ -31,35 +22,28 @@ if (isset($_GET['user_selected'])) {
     <main class="container">
 
         <h3 class="my-3">
-            List of users
+            List of users archived
         </h3>
 
         <nav aria-label="breadcrumb my-3">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Users</li>
+                <li class="breadcrumb-item"><a href="users.php">Users</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User archived</li>
             </ol>
         </nav>
 
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <h4>List of users</h4>
+        <div class="card shadow-sm border-danger">
+            <div class="card-header text-danger">
+                <h4>List of users archived</h4>
             </div>
-            <!-- card-header -->
+            <!-- crd-header -->
 
             <div class="card-body">
 
-                <a href="user_add.php" class="btn btn-primary btn-sm fw-bold mb-3">
-                    <i class="bi bi-pencil-square"></i>
-                    Add new user
-                </a>
-
-                <a href="users_archived.php" class="btn btn-secondary btn-sm fw-bold mb-3">
-                    <i class="bi bi-archive"></i>
-                    Archived
-                    <span class="badge text-bg-light">
-                        <?= $total_users_deleted ?>
-                    </span>
+                <a href="users.php" class="btn btn-secondary btn-sm fw-bold mb-3">
+                    <i class="bi bi-people-fill"></i>
+                    List of users
                 </a>
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered text-nowrap">
@@ -69,15 +53,12 @@ if (isset($_GET['user_selected'])) {
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Gender</th>
-                                <th>Phone</th>
-                                <th>City</th>
-                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($users as $key => $u) : ?>
-                                <tr class="<?= $u->id == $user_selected ? 'table-primary fw-bold' : '' ?>">
+                                <tr>
                                     <td><?= $u->id ?></td>
                                     <td><?= ucwords($u->first_name) ?></td>
                                     <td><?= ucwords($u->last_name) ?></td>
@@ -86,23 +67,16 @@ if (isset($_GET['user_selected'])) {
                                             <?= strtoupper($u->gender) ?>
                                         </span>
                                     </td>
-                                    <td><?= $u->phone ?></td>
-                                    <td><?= $u->city ?></td>
-                                    <td><?= $u->email ?></td>
+
                                     <td>
                                         <a href="user_details.php?id=<?= $u->id ?>" class="btn btn-secondary btn-sm fw-bold">
                                             <i class="bi bi-info-circle-fill"></i>
                                             Show
                                         </a>
 
-                                        <a href="user_update.php?id=<?= $u->id ?>" class="btn btn-dark btn-sm fw-bold">
-                                            <i class="bi bi-wrench-adjustable"></i>
-                                            Update
-                                        </a>
-
-                                        <a href="user_delete.php?id=<?= $u->id ?>" class="btn btn-danger btn-sm fw-bold">
-                                            <i class="bi bi-trash3-fill"></i>
-                                            Delete
+                                        <a href="user_active.php?id=<?= $u->id ?>" class="btn btn-success btn-sm fw-bold">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                            Active
                                         </a>
                                     </td>
                                 </tr>

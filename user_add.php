@@ -9,7 +9,6 @@ $title = "Users - Add new user";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['btn_add_user'])) {
 
-
         $first_name = e($_POST['first_name']);
         $last_name = e($_POST['last_name']);
         $phone = e($_POST['phone']);
@@ -28,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             email = '$email'
         ");
 
-        header('Location: users.php');
+        $id = $db->lastInsertId();
+        header('Location: users.php?user_selected=' . $id);
         exit;
     }
 }
@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender</label>
                                 <select class="form-select" name="gender" id="gender">
-                                    <option value="women">Women</option>
-                                    <option value="men">Men</option>
+                                    <option value="women">Woman</option>
+                                    <option value="men">Man</option>
                                 </select>
                             </div>
                         </div>

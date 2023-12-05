@@ -55,7 +55,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?= in_array($page, ["users"]) ? 'text-info fw-bold' : ''  ?>" href="users.php">Users</a>
+                    <a class="nav-link <?= in_array($page, ["users", "user_add", "user_details", "user_update", "user_delete", "users_archived", "user_active"]) ? 'text-info fw-bold' : ''  ?>" href="users.php">Users</a>
                 </li>
 
             </ul>

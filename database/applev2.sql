@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 25 oct. 2023 à 01:22
+-- Généré le : mer. 06 déc. 2023 à 00:30
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -44,8 +44,8 @@ INSERT INTO `categories` (`id`, `name`, `icon`, `created_at`, `updated_at`, `del
 (1, 'iphone', 'phone', '2023-10-17 23:14:58', NULL, NULL),
 (2, 'Macbook', 'laptop', '2023-10-18 00:26:36', NULL, NULL),
 (3, 'Imac', 'pc-display-horizontal', '2023-10-18 00:27:25', NULL, NULL),
-(4, 'Ipade', 'tablet', '2023-10-18 00:29:25', NULL, NULL),
-(5, 'Air Pods', 'earbuds', '2023-10-18 00:30:10', NULL, NULL);
+(4, 'Ipad', 'tablet', '2023-10-18 00:29:25', NULL, NULL),
+(5, 'Air Pods', 'earbuds', '2023-10-18 00:30:10', NULL, '2023-11-30 23:33:30');
 
 -- --------------------------------------------------------
 
@@ -77,11 +77,13 @@ INSERT INTO `colors` (`id`, `name`, `hex`, `created_at`, `updated_at`, `deleted_
 (8, 'red', '#e81717', '2023-10-12 23:00:12', '2023-10-12 23:00:12', NULL),
 (9, 'Aqua', '#88E8F2', '2023-10-12 23:00:52', '2023-10-12 23:00:52', NULL),
 (10, 'gray', '#eee', '2023-10-24 22:52:34', '2023-10-24 22:52:34', NULL),
-(11, 'YeLloW', '#FFD700', '2023-10-24 22:54:52', '2023-10-24 22:54:52', NULL),
+(11, 'Yellow', '#FFD700', '2023-10-24 22:54:52', '2023-11-02 22:11:48', NULL),
 (12, 'magenta', '#ff00ff', '2023-10-24 22:57:15', '2023-10-24 22:57:15', NULL),
 (13, 'gold', '#FFD700', '2023-10-24 23:04:27', '2023-10-24 23:04:27', NULL),
-(14, '&lt;script&gt;alert(123)&lt;/script&gt;  ', 'test', '2023-10-24 23:16:28', '2023-10-24 23:16:28', NULL),
-(15, 'cyan', '#00ffff', '2023-10-24 23:21:21', '2023-10-24 23:21:21', NULL);
+(14, 'Dark', '#25192b', '2023-10-24 23:16:28', '2023-11-02 22:11:07', NULL),
+(15, 'cyan', '#00ffff', '2023-10-24 23:21:21', '2023-10-24 23:21:21', NULL),
+(16, 'dark purple', '#840dbf', '2023-11-02 21:53:44', '2023-11-02 21:53:44', NULL),
+(17, 'gold2', '#ffee77', '2023-11-14 23:30:49', '2023-11-14 23:30:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,6 +274,38 @@ INSERT INTO `produits` (`id`, `reference`, `designation`, `description`, `prix`,
 (159, 'R-154', 'Apple TV 4K 32GB', 'With Apple TV 4K, enjoy the best of TV. And your favorite Apple devices and services. For a unique experience that completely changes your living room.\r\nPicture and sound. As if you were there.\r\nThe Apple TV 4K with Dolby Vision will amaze you, thats for ', 2499.00, 2790.00, 1, 'TV-4K-32.jpg', 'Black', 'TV 4K', '2023-10-02 17:27:40', '2023-10-02 17:27:40', NULL),
 (160, 'R-155', 'Apple TV 4K 64GB', 'With Apple TV 4K, enjoy the best of TV. And your favorite Apple devices and services. For a unique experience that completely changes your living room.\r\nPicture and sound. As if you were there.\r\nThe Apple TV 4K with Dolby Vision will amaze you, thats for ', 2890.00, 3000.00, 1, 'TV-4K-64.jpg', 'Black', 'TV 4K', '2023-10-02 17:27:40', '2023-10-02 17:27:40', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `adresse` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `gender`, `phone`, `city`, `adresse`, `email`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'lamiae', 'ahoukal', 'WOMAN', '06070607', 'tetouane', 'tetouan maroc', 'lamiae@gmail.com', '2023-11-30 22:43:26', '2023-12-05 23:30:15', NULL),
+(2, 'hamza', 'abajtour', 'man', '06060706', 'rincon', 'rincone maroc', 'hamza@gmail.com', '2023-11-30 22:43:26', '2023-12-05 23:30:22', NULL),
+(3, 'mohammed', 'ftiyah', 'man', '0605040708', 'tetouane', 'tetouane maroc', 'mohammed@gmail.com', '2023-11-30 22:43:26', '2023-12-05 22:47:20', NULL),
+(4, 'imane', 'hamdoun', 'woman', '06080703', 'tetouan', 'tetouan maroc', 'imane@gmail.com', '2023-11-30 23:08:31', '2023-12-05 22:58:43', NULL),
+(5, 'othmane', 'mezgueldi', 'man', '0680654338', 'tanger', 'maroc tanger', 'othmane@gmail.com', '2023-12-01 03:04:37', '2023-12-05 23:21:36', '2023-12-05 23:21:36'),
+(6, 'noura', 'mniyech', 'women', '0608070809', 'tanger', 'beir el chifa tanger maroc', 'noura@gmail.com', '2023-12-05 23:07:20', '2023-12-05 23:07:20', NULL);
+
 --
 -- Index pour les tables déchargées
 --
@@ -295,6 +329,12 @@ ALTER TABLE `produits`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -302,19 +342,25 @@ ALTER TABLE `produits`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `produits`
 --
 ALTER TABLE `produits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -15,7 +15,6 @@ $id = (int)$_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['btn_update_user'])) {
 
-
         $first_name = e($_POST['first_name']);
         $last_name = e($_POST['last_name']);
         $phone = e($_POST['phone']);
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE id = $id
         ");
 
-        header('Location: users.php');
+        header("Location: users.php?user_selected=$id");
         exit;
     }
 }
@@ -72,6 +71,13 @@ $created_at = _date_format($user->created_at);
             Update user
         </h3>
 
+        <nav aria-label="breadcrumb my-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="users.php">Users</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User update</li>
+            </ol>
+        </nav>
 
         <div class="card shadow-sm">
             <div class="card-header">
@@ -152,7 +158,7 @@ $created_at = _date_format($user->created_at);
                     </div>
                     <!-- row -->
 
-                    <button name="btn_update_user" type="submit" class="btn btn-primary fw-bold">
+                    <button name="btn_update_user" type="submit" class="btn btn-dark fw-bold">
                         <i class="bi bi-pencil-square"></i>
                         Update user
                     </button>
