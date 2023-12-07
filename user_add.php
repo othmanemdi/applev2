@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender</label>
                                 <select class="form-select" name="gender" id="gender">
-                                    <option value="women">Woman</option>
-                                    <option value="men">Man</option>
+                                    <option value="woman">Woman</option>
+                                    <option value="man">Man</option>
                                 </select>
                             </div>
                         </div>
@@ -131,15 +131,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <!-- row -->
 
-                    <button name="btn_add_user" type="submit" class="btn btn-primary fw-bold">
-                        <i class="bi bi-pencil-square"></i>
-                        Add new user
-                    </button>
+                    <div class="mt-0">
+                        <a href="users.php" class="btn btn-outline-dark btn-sm fw-bold">
+                            <i class="bi bi-arrow-left"></i>
+                            Back
+                        </a>
 
-                    <a href="users.php" class="btn btn-outline-dark fw-bold">
-                        <i class="bi bi-arrow-left"></i>
-                        Back
-                    </a>
+                        <button name="btn_add_user" type="submit" class="btn btn-primary btn-sm fw-bold">
+                            <i class="bi bi-pencil-square"></i>
+                            Add new user
+                        </button>
+                    </div>
 
                 </form>
             </div>

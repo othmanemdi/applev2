@@ -86,6 +86,13 @@ $users = $db->query("SELECT * FROM users WHERE deleted_at IS NOT NULL ORDER BY i
                     </table>
                 </div>
                 <!-- table-responsive -->
+
+                <div class="mt-0">
+                    <a href="users.php" class="btn btn-outline-dark btn-sm fw-bold">
+                        <i class="bi bi-arrow-left"></i>
+                        Back
+                    </a>
+                </div>
             </div>
             <!-- card-body -->
         </div>

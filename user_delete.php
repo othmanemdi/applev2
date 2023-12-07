@@ -130,12 +130,18 @@ if ($user_count == 1) {
                         Are you sure you want to delete (<?= $first_name ?>) ?
                     </h5>
 
-                    <form method="post">
-                        <a href="users.php" class="btn btn-secondary">Back</a>
+                    <form method="post" class="mt-3">
 
-                        <button type="submit" class="btn btn-danger" name="btn_delete_user">Delete</button>
+                        <a href="users.php" class="btn btn-outline-dark btn-sm fw-bold">
+                            <i class="bi bi-arrow-left"></i>
+                            Back
+                        </a>
+
+                        <button type="submit" class="btn btn-danger fw-bold" name="btn_delete_user btn-sm">
+                            <i class="bi bi-trash3-fill"></i>
+                            Delete
+                        </button>
                     </form>
-
 
                 </div>
                 <!-- card-body -->

@@ -119,6 +119,12 @@ if ($user_count == 1) {
 
                     </dl>
 
+                    <div class="mt-0">
+                        <a href="users.php" class="btn btn-outline-dark btn-sm fw-bold">
+                            <i class="bi bi-arrow-left"></i>
+                            Back
+                        </a>
+                    </div>
                 </div>
                 <!-- card-body -->
             </div>

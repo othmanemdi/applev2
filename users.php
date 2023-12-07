@@ -3,7 +3,49 @@ include_once "Helpers/functions.php";
 require_once "database/database.php";
 $page = _get_page_name();
 $title = "Users";
-$users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
+
+// $a = "Lamiae";
+
+// $a .= "Tetouan";
+
+// echo $a;
+
+// exit;
+
+
+
+
+$req_search = "";
+$search_city = "";
+
+if (isset($_GET['s'])) {
+    $s = $_GET['s'];
+    $search_city = $_GET['search_city'];
+
+    $req_search = " AND ( first_name LIKE '%$s%' OR last_name LIKE '%$s%' OR phone LIKE '%$s%' OR email LIKE '%$s%' OR city LIKE '%$s%') ";
+
+    if ($search_city != "") {
+        $req_search .= " AND city = '$search_city' ";
+    }
+}
+
+// dd($req_search);
+
+if (isset($_GET['searsh_fs'])) {
+    $searsh_fs = $_GET['searsh_fs'];
+    $req_search = " AND first_name LIKE '%$searsh_fs%' ";
+}
+
+$users = $db->query("SELECT * FROM users WHERE deleted_at IS NULL 
+$req_search
+ORDER BY id DESC")->fetchAll();
+// dd($users);
+
+
+
+$citys = $db->query("SELECT distinct city FROM users WHERE deleted_at IS NULL 
+ORDER BY city ASC")->fetchAll();
+
 
 $total_users_deleted = $db->query("SELECT count(id) AS total_users_deleted FROM users WHERE deleted_at IS NOT NULL LIMIT 1")->fetch()->total_users_deleted;
 
@@ -13,6 +55,7 @@ $user_selected = 0;
 if (isset($_GET['user_selected'])) {
     $user_selected = (int)$_GET['user_selected'];
 }
+
 
 ?>
 
@@ -49,24 +92,53 @@ if (isset($_GET['user_selected'])) {
 
             <div class="card-body">
 
-                <a href="user_add.php" class="btn btn-primary btn-sm fw-bold mb-3">
-                    <i class="bi bi-pencil-square"></i>
-                    Add new user
-                </a>
+                <div class="d-flex">
+                    <div class="me-auto input-group mt-0">
+                        <a href="user_add.php" class="btn btn-primary me-2 btn-sm fw-bold mb-3">
+                            <i class="bi bi-pencil-square"></i>
+                            Add new user
+                        </a>
 
-                <a href="users_archived.php" class="btn btn-secondary btn-sm fw-bold mb-3">
-                    <i class="bi bi-archive"></i>
-                    Archived
-                    <span class="badge text-bg-light">
-                        <?= $total_users_deleted ?>
-                    </span>
-                </a>
+                        <a href="users_archived.php" class="btn btn-secondary btn-sm fw-bold mb-3">
+                            <i class="bi bi-archive"></i>
+                            Archived
+                            <span class="badge text-bg-light">
+                                <?= $total_users_deleted ?>
+                            </span>
+                        </a>
+                    </div>
+                    <!-- mt-0 -->
+
+                    <form method="get" class="input-group mb-3">
+
+                        <select class="form-select form-select-sm me-2" name="search_city" id="search_city">
+                            <option value="">All citys</option>
+                            <?php foreach ($citys as $c) : ?>
+                                <option value="<?= $c->city ?>" <?= $search_city == $c->city ? 'selected' : ''   ?>>
+                                    <?= ucwords($c->city) ?>
+                                </option>
+                            <?php endforeach ?>
+
+                        </select>
+
+                        <input id="s" name="s" type="search" class="form-control form-control-sm" placeholder="Search a user:" value="<?= $s ?? '' ?>">
+                        <button class="btn btn-outline-dark btn-sm" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    <!-- input-group -->
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered text-nowrap">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>First name</th>
+                                <th>
+                                    <form method="get">
+                                        <input type="text" name="searsh_fs" id="searsh_fs" placeholder="First name" class="form-control form-control-sm" value="<?= $searsh_fs ?? '' ?>">
+                                    </form>
+                                </th>
                                 <th>Last name</th>
                                 <th>Gender</th>
                                 <th>Phone</th>
@@ -90,20 +162,39 @@ if (isset($_GET['user_selected'])) {
                                     <td><?= $u->city ?></td>
                                     <td><?= $u->email ?></td>
                                     <td>
-                                        <a href="user_details.php?id=<?= $u->id ?>" class="btn btn-secondary btn-sm fw-bold">
-                                            <i class="bi bi-info-circle-fill"></i>
-                                            Show
-                                        </a>
 
-                                        <a href="user_update.php?id=<?= $u->id ?>" class="btn btn-dark btn-sm fw-bold">
-                                            <i class="bi bi-wrench-adjustable"></i>
-                                            Update
-                                        </a>
 
-                                        <a href="user_delete.php?id=<?= $u->id ?>" class="btn btn-danger btn-sm fw-bold">
-                                            <i class="bi bi-trash3-fill"></i>
-                                            Delete
-                                        </a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="user_details.php?id=<?= $u->id ?>">
+                                                        <i class="bi bi-info-circle-fill"></i>
+                                                        Show
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="user_update.php?id=<?= $u->id ?>">
+                                                        <i class="bi bi-wrench-adjustable"></i>
+                                                        Update
+                                                    </a>
+                                                </li>
+                                                <li>
+
+                                                    <a class="dropdown-item" href="user_delete.php?id=<?= $u->id ?>">
+                                                        <i class="bi bi-trash3-fill"></i>
+                                                        Delete
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+
+
+
                                     </td>
                                 </tr>
                             <?php endforeach  ?>

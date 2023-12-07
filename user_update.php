@@ -158,15 +158,17 @@ $created_at = _date_format($user->created_at);
                     </div>
                     <!-- row -->
 
-                    <button name="btn_update_user" type="submit" class="btn btn-dark fw-bold">
-                        <i class="bi bi-pencil-square"></i>
-                        Update user
-                    </button>
+                    <div class="mt-0">
+                        <a href="users.php" class="btn btn-outline-dark btn-sm fw-bold">
+                            <i class="bi bi-arrow-left"></i>
+                            Back
+                        </a>
 
-                    <a href="users.php" class="btn btn-outline-dark fw-bold">
-                        <i class="bi bi-arrow-left"></i>
-                        Back
-                    </a>
+                        <button name="btn_update_user" type="submit" class="btn btn-dark btn-sm fw-bold">
+                            <i class="bi bi-pencil-square"></i>
+                            Update user
+                        </button>
+                    </div>
 
                 </form>
             </div>
