@@ -6,6 +6,8 @@ $title = "User details";
 
 
 if (!isset($_GET['id']) or $_GET['id'] == '') {
+    $_SESSION['message'] = "Error id";
+    $_SESSION['color'] = "danger";
     header('Location:users.php');
     exit;
 }

@@ -1,6 +1,10 @@
 <?php
 date_default_timezone_set('Africa/Casablanca');
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 function get_full_name($prenom, $nom)
 {
     $result = $prenom . ' ' . $nom;

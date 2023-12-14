@@ -1,6 +1,7 @@
 <?php
 include_once "Helpers/functions.php";
 require_once "database/database.php";
+
 $page = _get_page_name();
 $title = "Users";
 
@@ -17,12 +18,18 @@ $title = "Users";
 
 $req_search = "";
 $search_city = "";
+$search_gender = "";
 
 if (isset($_GET['s'])) {
     $s = $_GET['s'];
+    $search_gender = $_GET['search_gender'];
     $search_city = $_GET['search_city'];
 
-    $req_search = " AND ( first_name LIKE '%$s%' OR last_name LIKE '%$s%' OR phone LIKE '%$s%' OR email LIKE '%$s%' OR city LIKE '%$s%') ";
+    $req_search = " AND ( first_name LIKE '%$s%' OR last_name LIKE '%$s%' OR phone LIKE '%$s%' OR email LIKE '%$s%' ) ";
+
+    if ($search_gender != "") {
+        $req_search .= " AND gender = '$search_gender' ";
+    }
 
     if ($search_city != "") {
         $req_search .= " AND city = '$search_city' ";
@@ -84,6 +91,8 @@ if (isset($_GET['user_selected'])) {
             </ol>
         </nav>
 
+        <?php include "body/message_flash.php" ?>
+
         <div class="card shadow-sm">
             <div class="card-header">
                 <h4>List of users</h4>
@@ -111,6 +120,12 @@ if (isset($_GET['user_selected'])) {
 
                     <form method="get" class="input-group mb-3">
 
+                        <select class="form-select form-select-sm me-2" name="search_gender" id="search_gender">
+                            <option value="">All genders</option>
+                            <option value="woman" <?= $search_gender == 'woman' ? 'selected' : '' ?>>Woman</option>
+                            <option value="man" <?= $search_gender == 'man' ? 'selected' : '' ?>>Man</option>
+                        </select>
+
                         <select class="form-select form-select-sm me-2" name="search_city" id="search_city">
                             <option value="">All citys</option>
                             <?php foreach ($citys as $c) : ?>
@@ -131,12 +146,12 @@ if (isset($_GET['user_selected'])) {
 
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered text-nowrap">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>Id</th>
                                 <th>
                                     <form method="get">
-                                        <input type="text" name="searsh_fs" id="searsh_fs" placeholder="First name" class="form-control form-control-sm" value="<?= $searsh_fs ?? '' ?>">
+                                        <input type="text" name="searsh_fs" id="searsh_fs" placeholder="First name" class="form-control form-control-sm fw-bold p-0 ps-1" value="<?= $searsh_fs ?? '' ?>">
                                     </form>
                                 </th>
                                 <th>Last name</th>
@@ -144,7 +159,7 @@ if (isset($_GET['user_selected'])) {
                                 <th>Phone</th>
                                 <th>City</th>
                                 <th>Email</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -161,11 +176,11 @@ if (isset($_GET['user_selected'])) {
                                     <td><?= $u->phone ?></td>
                                     <td><?= $u->city ?></td>
                                     <td><?= $u->email ?></td>
-                                    <td>
+                                    <td class="text-center">
 
 
                                         <div class="dropdown">
-                                            <button class="btn btn-outline-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                            <button class="btn  btn-sm " data-bs-toggle="dropdown">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                             <ul class="dropdown-menu">

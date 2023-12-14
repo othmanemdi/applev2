@@ -137,7 +137,7 @@ if ($user_count == 1) {
                             Back
                         </a>
 
-                        <button type="submit" class="btn btn-danger fw-bold" name="btn_delete_user btn-sm">
+                        <button type="submit" class="btn btn-danger fw-bold btn-sm" name="btn_delete_user">
                             <i class="bi bi-trash3-fill"></i>
                             Delete
                         </button>

@@ -4,8 +4,6 @@ require_once "database/database.php";
 $page = _get_page_name();
 $title = "Users - Add new user";
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['btn_add_user'])) {
 
@@ -16,6 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $city = e($_POST['city']);
         $adresse = e($_POST['adresse']);
         $email = e($_POST['email']);
+        if ($first_name == "" and $last_name == "") {
+            $_SESSION['message'] = "First name and last name are required !!!";
+            $_SESSION['color'] = "danger";
+            header('Location: user_add.php');
+            exit;
+        }
 
         $db->query("INSERT INTO users SET 
             first_name = '$first_name', 
@@ -28,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ");
 
         $id = $db->lastInsertId();
+        $_SESSION['message'] = "Added successfully";
+        $_SESSION['color'] = "primary";
         header('Location: users.php?user_selected=' . $id);
         exit;
     }
@@ -51,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Add new user
         </h3>
 
+        <?php include "body/message_flash.php" ?>
 
         <div class="card shadow-sm">
             <div class="card-header">

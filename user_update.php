@@ -5,6 +5,8 @@ $page = _get_page_name();
 $title = "Users - Update user";
 
 if (!isset($_GET['id'])) {
+    $_SESSION['message'] = "Error id";
+    $_SESSION['color'] = "danger";
     header("Location:users.php");
     exit;
 }
@@ -33,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             email = '$email'
             WHERE id = $id
         ");
-
+        $_SESSION['message'] = "Edited successfully";
+        $_SESSION['color'] = "primary";
         header("Location: users.php?user_selected=$id");
         exit;
     }

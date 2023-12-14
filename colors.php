@@ -20,6 +20,8 @@ $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL ORDER BY id 
 
 <head>
     <?php include "body/head.php"; ?>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
 </head>
 
 <body class="bg-light">
@@ -52,7 +54,7 @@ $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL ORDER BY id 
                     Add new color
                 </a>
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered">
+                    <table class="table table-sm table-bordered" id="datatable">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -108,6 +110,17 @@ $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL ORDER BY id 
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(function() {
+            $('#datatable').dataTable();
+        });
     </script>
 </body>
 
